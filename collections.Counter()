@@ -1,0 +1,26 @@
+from collections import Counter
+
+if __name__ == "__main__":
+    # 1. Read the number of shoes (first line)
+    num_shoes = int(input())
+    
+    # 2. Store shoe sizes in a Counter dictionary (second line)
+    # Counter will store sizes as keys and their quantities as values
+    inventory = Counter(map(int, input().split()))
+    
+    # 3. Read the number of customers (third line)
+    num_customers = int(input())
+    
+    total_revenue = 0
+    
+    # 4. Process each customer request
+    for _ in range(num_customers):
+        size, price = map(int, input().split())
+        
+        # Check if the shoe size is in stock
+        if inventory[size] > 0:
+            total_revenue += price
+            inventory[size] -= 1  # Reduce stock by one
+            
+    # 5. Print the final result
+    print(total_revenue)
