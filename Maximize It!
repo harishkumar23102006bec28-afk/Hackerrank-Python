@@ -1,0 +1,33 @@
+from itertools import product
+import sys
+
+def solve():
+    # Read K and M (modulo value)
+    try:
+        line1 = sys.stdin.readline().split()
+        if not line1: return
+        K, M = map(int, line1)
+    except ValueError:
+        return
+
+    lists = []
+    for _ in range(K):
+        # Read each list, removing the first element (length of the list)
+        row = list(map(int, sys.stdin.readline().split()))[1:]
+        # Optimization: Use set to only keep unique squared values % M
+        squared_unique = set(x**2 % M for x in row)
+        lists.append(squared_unique)
+
+    # product(*lists) gives all combinations of (x1^2, x2^2, ..., xk^2)
+    # The max value that can be obtained is the answer
+    max_sum = 0
+    for combo in product(*lists):
+        current_sum = sum(combo) % M
+        if current_sum > max_sum:
+            max_sum = current_sum
+            
+    print(max_sum)
+
+if __name__ == '__main__':
+    solve()
+
